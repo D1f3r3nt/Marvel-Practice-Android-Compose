@@ -12,6 +12,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -27,6 +28,21 @@ import com.keepcoding.marvelsuperpoderes.ui.components.molecules.DetailCharacter
 import com.keepcoding.marvelsuperpoderes.ui.navigation.Navigation
 import com.keepcoding.marvelsuperpoderes.ui.navigation.NavigationController
 import com.keepcoding.marvelsuperpoderes.ui.theme.DarkOrange
+
+/**
+ * Switch - Jetpack Compose
+ * 
+ * Este componente es el tipico switch introducido por Apple,
+ * en este caso se ha decidido usar el switch para alternar entre
+ * favorito o no.
+ * 
+ * El Switch de material 1, cuenta con 5 parametros:
+ * @param checked para comprobar si el componenete esta activo
+ * @param onCheckedChange callback para escuchar el cambio de estado
+ * @param modifier Modifier
+ * @param enabled para saber si el componente este disponible
+ * @param interactionSource una representación para los streams del Switch
+ */
 
 @Composable
 fun DetailPage(viewModel: DetailViewModel) {
@@ -49,6 +65,12 @@ fun DetailPage(viewModel: DetailViewModel) {
                     }
                 },
                 backgroundColor = DarkOrange,
+                actions = {
+                    Switch(
+                        checked = mainCharacter?.favorite ?: false, 
+                        onCheckedChange = {},
+                    )
+                }
             )
         }
     ) {
