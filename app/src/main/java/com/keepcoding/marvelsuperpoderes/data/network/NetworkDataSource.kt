@@ -2,6 +2,7 @@ package com.keepcoding.marvelsuperpoderes.data.network
 
 import com.keepcoding.marvelsuperpoderes.domain.CharacterRemote
 import com.keepcoding.marvelsuperpoderes.data.network.api.MarvelApi
+import com.keepcoding.marvelsuperpoderes.domain.ComicRemote
 import java.security.MessageDigest
 import javax.inject.Inject
 
@@ -19,7 +20,21 @@ class NetworkDataSource @Inject constructor(
         
         return response.data.results
     }
-    
+
+    override suspend fun getCharacter(id: String): CharacterRemote {
+        val hash = MD5("$ts$privateKey$publicKey")
+        val response = api.getCharacter(id, publicKey, "1", hash)
+
+        return response.data.results[0]
+    }
+
+    override suspend fun getComic(id: String): List<ComicRemote> {
+        val hash = MD5("$ts$privateKey$publicKey")
+        val response = api.getComic(id, publicKey, "1", hash)
+
+        return response.data.results
+    }
+
     private fun MD5(value: String): String {
         val md = MessageDigest.getInstance("MD5")
         val hashBytes = md.digest(value.toByteArray())

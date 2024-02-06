@@ -1,20 +1,18 @@
 package com.keepcoding.marvelsuperpoderes.ui.navigation
 
-sealed class Navigation(val route: String){
-    object HOME: Navigation("home")
-    object DETAIL: Navigation("detail")
+import com.keepcoding.marvelsuperpoderes.ui.navigation.Navigation.DETAIL.ARG_CHARACTER
 
-//    object Screen4: NavigationScreensSealed(SCREEN4_ROUTE_TEMPLATE){
-//
-//        const val ARG_DEV_NAME = "devName"
-//        const val ARG_AGE = "age"
-//
-//        fun createRouteWithArgs(devName: String, age: Int): String {
-//            return "Screen4/$devName/$age"
-//        }
-//    }
-//
-//    companion object {
-//        const val SCREEN4_ROUTE_TEMPLATE = "Screen4/{$ARG_DEV_NAME}/{$ARG_AGE}"
-//    }
+sealed class Navigation(val route: String){
+    companion object {
+        const val HOME_ROUTE = "home"
+        const val DETAIL_ROUTE = "detail/{$ARG_CHARACTER}"
+    }
+    object HOME: Navigation(HOME_ROUTE)
+    object DETAIL: Navigation(DETAIL_ROUTE) {
+        const val ARG_CHARACTER = "character"
+
+        fun createRouteWithArgs(character: String): String {
+            return "detail/$character"
+        }
+    }
 }

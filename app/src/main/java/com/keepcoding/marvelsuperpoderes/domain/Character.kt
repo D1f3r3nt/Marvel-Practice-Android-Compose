@@ -10,9 +10,10 @@ data class CharacterUI(
     val name: String,
     val description: String,
     val photo: String,
+    var favorite: Boolean,
 )
 
-data class CharacterRemote (
+data class CharacterRemote(
     val id: Long,
     val name: String,
     val description: String,
@@ -27,7 +28,7 @@ data class CharacterRemote (
 )
 
 fun CharacterRemote.toUI(): CharacterUI {
-    return CharacterUI(this.id, this.name, this.description, "${thumbnail.path}.${thumbnail.extension}")
+    return CharacterUI(this.id, this.name, this.description, "${thumbnail.path}.${thumbnail.extension}", false)
 }
 
 fun List<CharacterRemote>.toUI(): List<CharacterUI> {
