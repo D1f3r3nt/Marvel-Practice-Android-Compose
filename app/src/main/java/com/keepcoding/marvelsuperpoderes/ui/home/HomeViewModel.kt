@@ -3,11 +3,9 @@ package com.keepcoding.marvelsuperpoderes.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.keepcoding.marvelsuperpoderes.data.RepositoryInterface
-import com.keepcoding.marvelsuperpoderes.domain.CharacterUI
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,14 +14,17 @@ class HomeViewModel @Inject constructor(
     private val repository: RepositoryInterface,
 ) : ViewModel() {
     
-    private val _characters = MutableStateFlow<List<CharacterUI>>(emptyList())
-    val characters: StateFlow<List<CharacterUI>> = _characters
-    
+    val characters = repository.getCachedCharacters().stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+
     fun getCharacters() {
-        viewModelScope.launch { 
-            _characters.update {
-                repository.getCharacters()
-            }
+        viewModelScope.launch {
+            repository.getDataCharacters()
+        }
+    }
+
+    fun toggleFavorite(id: Long) {
+        viewModelScope.launch {
+            repository.toggleFavoriteCharacter(id)
         }
     }
 }

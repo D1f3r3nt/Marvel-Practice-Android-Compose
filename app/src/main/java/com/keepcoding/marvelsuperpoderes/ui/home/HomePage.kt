@@ -33,8 +33,13 @@ fun HomePage(viewModel: HomeViewModel) {
             item { 
                 Spacer(modifier = Modifier.height(10.dp))
             }
-            items(characters) {character ->
-                HomeItem(character = character)
+            items(characters) { character ->
+                HomeItem(
+                    onClickFavorite = {
+                        viewModel.toggleFavorite(character.id)
+                    },
+                    character = character
+                )
             }
             item {
                 Spacer(modifier = Modifier.height(10.dp))

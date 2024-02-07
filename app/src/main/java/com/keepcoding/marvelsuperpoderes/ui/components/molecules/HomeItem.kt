@@ -30,7 +30,7 @@ import com.keepcoding.marvelsuperpoderes.ui.navigation.Navigation
 import com.keepcoding.marvelsuperpoderes.ui.navigation.NavigationController
 
 @Composable
-fun HomeItem(character: CharacterUI, modifier: Modifier = Modifier) {
+fun HomeItem(onClickFavorite: () -> Unit, character: CharacterUI, modifier: Modifier = Modifier) {
 
     val navController = NavigationController.controller()
 
@@ -68,7 +68,7 @@ fun HomeItem(character: CharacterUI, modifier: Modifier = Modifier) {
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     FavoriteIcon(
-                        onClick = { /*TODO*/ },
+                        onClickFavorite,
                         isFavorite = character.favorite
                     )
                     Text(
@@ -95,5 +95,5 @@ fun HomeItem(character: CharacterUI, modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun HomeItem_Preview() {
-    HomeItem(character = CharacterUI(110L, "Iron Man", "x ".repeat(30), "", false))
+    HomeItem({}, character = CharacterUI(110L, "Iron Man", "x ".repeat(30), "", false))
 }
