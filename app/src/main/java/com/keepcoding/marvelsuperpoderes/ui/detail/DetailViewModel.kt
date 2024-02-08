@@ -19,6 +19,9 @@ class DetailViewModel @Inject constructor(
     private val _character = MutableStateFlow<CharacterUI?>(null)
     val character: StateFlow<CharacterUI?> = _character
 
+    private val _favorite = MutableStateFlow<Boolean>(false)
+    val favorite: StateFlow<Boolean> = _favorite
+
     private val _comics = MutableStateFlow<List<ComicUI>>(emptyList())
     val comics: StateFlow<List<ComicUI>> = _comics
     
@@ -30,6 +33,24 @@ class DetailViewModel @Inject constructor(
             
             _comics.update { 
                 repository.getComics(id)
+            }
+        }
+    }
+    
+    fun setFavorite(favorite: Boolean) {
+        _favorite.update { 
+            favorite
+        }
+    }
+    
+    fun toggleFavorite() {
+        viewModelScope.launch { 
+            character.value?.let {
+                repository.toggleFavoriteCharacter(it.id)
+            }
+            
+            _favorite.update {
+                !favorite.value
             }
         }
     }

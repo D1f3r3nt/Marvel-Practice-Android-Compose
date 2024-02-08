@@ -48,6 +48,7 @@ import com.keepcoding.marvelsuperpoderes.ui.theme.DarkOrange
 fun DetailPage(viewModel: DetailViewModel) {
     val mainCharacter by viewModel.character.collectAsState()
     val mainComics by viewModel.comics.collectAsState()
+    val favorite by viewModel.favorite.collectAsState()
 
     val navController = NavigationController.controller()
 
@@ -67,8 +68,10 @@ fun DetailPage(viewModel: DetailViewModel) {
                 backgroundColor = DarkOrange,
                 actions = {
                     Switch(
-                        checked = mainCharacter?.favorite ?: false, 
-                        onCheckedChange = {},
+                        checked = favorite, 
+                        onCheckedChange = {
+                              viewModel.toggleFavorite()
+                        },
                     )
                 }
             )

@@ -38,8 +38,16 @@ class MainActivity : ComponentActivity() {
                     navArgument(Navigation.DETAIL.ARG_CHARACTER) {
                         nullable = false
                         type = NavType.StringType
+                    },
+                    navArgument(Navigation.DETAIL.ARG_FAVORITE) {
+                        nullable = false
+                        type = NavType.BoolType
                     }
                 )) {
+                    it.arguments?.getBoolean(Navigation.DETAIL.ARG_FAVORITE)?.let { 
+                        detailViewModel.setFavorite(it)
+                    }
+                    
                     it.arguments?.getString(Navigation.DETAIL.ARG_CHARACTER)?.let { id ->
                         detailViewModel.getCharacter(id)
                         

@@ -42,7 +42,7 @@ fun HomeItem(onClickFavorite: () -> Unit, character: CharacterUI, modifier: Modi
                 navController?.navigate(
                     Navigation
                         .DETAIL
-                        .createRouteWithArgs(character.id.toString())
+                        .createRouteWithArgs(character.id.toString(), character.favorite)
                 )
             }
     ) {
