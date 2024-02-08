@@ -1,24 +1,39 @@
 package com.keepcoding.marvelsuperpoderes
 
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.performClick
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.keepcoding.marvelsuperpoderes.ui.components.atoms.FavoriteIcon
 
 import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
+import org.junit.Rule
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
+    
+    @get:Rule
+    val composeRule = createComposeRule()
+    
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.keepcoding.marvelsuperpoderes", appContext.packageName)
+    fun when_detail_screen_click_on_favorite() {        
+        composeRule.setContent { 
+            var favorite by rememberSaveable {
+                mutableStateOf(false)
+            }
+            
+            FavoriteIcon(onClick = { favorite = !favorite }, isFavorite = favorite)
+        }
+
+        composeRule.onNodeWithTag("favorite_border", useUnmergedTree = true).assertExists()
+        composeRule.onNodeWithTag("favorite_button").performClick()
+        composeRule.onNodeWithTag("favorite_full", useUnmergedTree = true).assertExists()
     }
 }

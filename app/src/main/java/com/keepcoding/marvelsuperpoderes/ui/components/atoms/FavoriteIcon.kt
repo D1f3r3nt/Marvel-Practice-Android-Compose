@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -18,7 +19,7 @@ fun FavoriteIcon(
     isFavorite: Boolean, 
     modifier: Modifier = Modifier
 ) {
-    IconButton(onClick, modifier = modifier) {
+    IconButton(onClick, modifier = modifier.testTag("favorite_button")) {
         if (isFavorite) {
             Icon(
                 imageVector = Icons.Filled.Favorite,
@@ -26,6 +27,7 @@ fun FavoriteIcon(
                 tint = Color.Red,
                 modifier = Modifier
                     .size(32.dp)
+                    .testTag("favorite_full")
             )
         } else {
             Icon(
@@ -34,6 +36,7 @@ fun FavoriteIcon(
                 tint = Color.Red,
                 modifier = Modifier
                     .size(32.dp)
+                    .testTag("favorite_border")
             )
         }
     }
