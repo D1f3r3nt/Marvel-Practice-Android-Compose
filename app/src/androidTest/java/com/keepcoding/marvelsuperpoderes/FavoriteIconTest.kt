@@ -17,7 +17,7 @@ import org.junit.Assert.*
 import org.junit.Rule
 
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class FavoriteIconTest {
     
     @get:Rule
     val composeRule = createComposeRule()
